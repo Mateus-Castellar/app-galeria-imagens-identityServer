@@ -1,4 +1,5 @@
 using ImageGallery.API.Data;
+using ImageGallery.API.Data.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<GalleryContext>(options =>
     options.UseSqlite(
         builder.Configuration["ConnectionStrings:ImageGalleryDBConnectionString"]);
 });
+
+builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
