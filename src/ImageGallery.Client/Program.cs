@@ -29,6 +29,7 @@ builder.Services.AddAuthentication(options =>
     //options.Scope.Add("openid");
     //options.Scope.Add("profile");
     //options.CallbackPath = new PathString("sigin-oidc");
+    //options.SignedOutCallbackPath = default => host:port/signout-callback-oidc
     options.SaveTokens = true;
 });
 
