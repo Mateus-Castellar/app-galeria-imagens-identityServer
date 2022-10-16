@@ -29,7 +29,13 @@ namespace ImageGallery.API.Controllers
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
-            var imagesFromRepo = await _galleryRepository.GetImagesAsync();
+            var ownerId = User.Claims
+                .FirstOrDefault(lbda => lbda.Type == "sub")?.Value;
+
+            if (ownerId is null)
+                throw new Exception("user identifier is missing from token");
+
+            var imagesFromRepo = await _galleryRepository.GetImagesAsync(ownerId);
 
             var imagesToReturn = _mapper.Map<IEnumerable<Image>>(imagesFromRepo);
 

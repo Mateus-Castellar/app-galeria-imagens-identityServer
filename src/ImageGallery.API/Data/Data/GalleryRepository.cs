@@ -5,7 +5,7 @@ namespace ImageGallery.API.Data.Data
 {
     public interface IGalleryRepository
     {
-        Task<IEnumerable<Image>> GetImagesAsync();
+        Task<IEnumerable<Image>> GetImagesAsync(string ownerId);
         Task<bool> IsImageOwnerAsync(Guid id, string ownerId);
         Task<Image?> GetImageAsync(Guid id);
         Task<bool> ImageExistsAsync(Guid id);
@@ -35,9 +35,10 @@ namespace ImageGallery.API.Data.Data
             return await _context.Images.FirstOrDefaultAsync(lbda => lbda.Id == id);
         }
 
-        public async Task<IEnumerable<Image>> GetImagesAsync()
+        public async Task<IEnumerable<Image>> GetImagesAsync(string ownerId)
         {
             return await _context.Images
+                .Where(lbda => lbda.OwnerId == ownerId)
                 .OrderBy(lbda => lbda.Title).ToListAsync();
         }
 
