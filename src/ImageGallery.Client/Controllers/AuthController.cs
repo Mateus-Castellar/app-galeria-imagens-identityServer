@@ -18,5 +18,10 @@ namespace ImageGallery.Client.Controllers
                 OpenIdConnectDefaults.AuthenticationScheme);
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
