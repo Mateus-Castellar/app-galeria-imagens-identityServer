@@ -10,13 +10,14 @@ builder.Services.AddControllersWithViews().AddJsonOptions(configure =>
     configure.JsonSerializerOptions.PropertyNamingPolicy = null); ;
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+builder.Services.AddAccessTokenManagement();
 
 builder.Services.AddHttpClient("APIClient", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ImageGalleryAPIRoot"]);
     client.DefaultRequestHeaders.Clear();
     client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-});
+}).AddUserAccessTokenHandler();
 
 builder.Services.AddAuthentication(options =>
 {
