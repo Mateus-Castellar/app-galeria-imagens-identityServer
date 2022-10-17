@@ -10,13 +10,14 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResource("roles","Your rele(s)",new []{"role"})
+            new IdentityResource("roles","Your role(s)",new []{"role"})
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
         new ApiResource[]
             {
-                new ApiResource("imagegalleryapi","Image Gallery API",
+                new ApiResource("imagegalleryapi",
+                    "Image Gallery API",
                     new []{"role"})
                 {
                     Scopes = { "imagegalleryapi.fullaccess" }
